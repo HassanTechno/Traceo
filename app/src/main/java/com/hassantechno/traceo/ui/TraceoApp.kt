@@ -125,37 +125,40 @@ fun TraceoApp() {
                     .padding(innerPadding),
             ) {
                 when {
-                    selectedService != null -> ServiceDetailScreen(
-                        service = selectedService,
-                        phone = activePhone,
-                        installed = selectedService.id in installedIds,
-                        onBack = { selectedServiceId = null },
-                        onLaunch = { openService(selectedService) },
-                        onInstall = {
-                            if (!openStore(context, selectedService.packageName)) {
-                                showMessage("فروشگاه در دسترس نیست.")
-                            }
-                        },
-                        onCopyPhone = {
-                            activePhone?.let { phone ->
-                                if (copyToClipboard(context, "شماره", phone.formatted)) {
-                                    showMessage("شماره کپی شد.")
-                                } else {
-                                    showMessage("کپی شماره ممکن نشد.")
+                    selectedService != null -> {
+                        val service = selectedService
+                        ServiceDetailScreen(
+                            service = service,
+                            phone = activePhone,
+                            installed = service.id in installedIds,
+                            onBack = { selectedServiceId = null },
+                            onLaunch = { openService(service) },
+                            onInstall = {
+                                if (!openStore(context, service.packageName)) {
+                                    showMessage("فروشگاه در دسترس نیست.")
                                 }
-                            }
-                        },
-                        onSharePhone = {
-                            activePhone?.let { phone ->
-                                shareText(context, phone.formatted, "اشتراک‌گذاری شماره")
-                            }
-                        },
-                        onRequestPhone = {
-                            selectedServiceId = null
-                            tab = 0
-                        },
-                        modifier = Modifier.fillMaxSize(),
-                    )
+                            },
+                            onCopyPhone = {
+                                activePhone?.let { phone ->
+                                    if (copyToClipboard(context, "شماره", phone.formatted)) {
+                                        showMessage("شماره کپی شد.")
+                                    } else {
+                                        showMessage("کپی شماره ممکن نشد.")
+                                    }
+                                }
+                            },
+                            onSharePhone = {
+                                activePhone?.let { phone ->
+                                    shareText(context, phone.formatted, "اشتراک‌گذاری شماره")
+                                }
+                            },
+                            onRequestPhone = {
+                                selectedServiceId = null
+                                tab = 0
+                            },
+                            modifier = Modifier.fillMaxSize(),
+                        )
+                    }
 
                     tab == 1 -> ServicesScreen(
                         phone = activePhone,

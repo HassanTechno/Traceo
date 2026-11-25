@@ -50,20 +50,19 @@ fun TraceoBackdrop(content: @Composable BoxScope.() -> Unit) {
                     listOf(TraceoBackgroundTop, TraceoBackground, TraceoBackgroundBottom),
                 ),
             ),
-        content = {
-            Box(
-                Modifier
-                    .fillMaxWidth()
-                    .height(260.dp)
-                    .background(
-                        Brush.radialGradient(
-                            listOf(TraceoAccent.copy(alpha = 0.14f), Color.Transparent),
-                        ),
+    ) {
+        Box(
+            Modifier
+                .fillMaxWidth()
+                .height(260.dp)
+                .background(
+                    Brush.radialGradient(
+                        listOf(TraceoAccent.copy(alpha = 0.14f), Color.Transparent),
                     ),
-            )
-            content()
-        },
-    )
+                ),
+        )
+        content()
+    }
 }
 
 @Composable
